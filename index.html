@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Gadget Store</title>
+  <meta name="description" content="Get in touch with Gadget Store. Find our contact information, store hours, and reach out through our contact form for any inquiries.">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header>
+    <nav aria-label="Main navigation">
+      <h2>Gadget Store</h2>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section aria-labelledby="contact-heading">
+      <h1 id="contact-heading">Contact Us</h1>
+      <p>We'd love to hear from you. Get in touch with our team.</p>
+    </section>
+
+    <section aria-labelledby="contact-info-heading">
+      <h2 id="contact-info-heading">Contact Information</h2>
+      <div>
+        <h3>Address</h3>
+        <address>
+          123 Tech Boulevard<br>
+          Silicon Valley, CA 94025<br>
+          United States
+        </address>
+      </div>
+      <div>
+        <h3>Phone</h3>
+        <p><a href="tel:+15551234567">+1 (555) 123-4567</a></p>
+      </div>
+      <div>
+        <h3>Email</h3>
+        <p><a href="mailto:info@gadgetstore.com">info@gadgetstore.com</a></p>
+      </div>
+    </section>
+
+    <section aria-labelledby="hours-heading">
+      <h2 id="hours-heading">Operating Hours</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Day</th>
+            <th scope="col">Hours</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monday - Friday</td>
+            <td><time datetime="09:00">9:00 AM</time> - <time datetime="18:00">6:00 PM</time></td>
+          </tr>
+          <tr>
+            <td>Saturday</td>
+            <td><time datetime="10:00">10:00 AM</time> - <time datetime="16:00">4:00 PM</time></td>
+          </tr>
+          <tr>
+            <td>Sunday</td>
+            <td>Closed</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section aria-labelledby="form-heading">
+      <h2 id="form-heading">Send Us a Message</h2>
+      <form action="/submit-contact" method="post">
+        <fieldset>
+          <legend>Your Information</legend>
+
+          <div>
+            <label for="name">Name <span aria-label="required">*</span></label>
+            <input type="text" id="name" name="name" required autocomplete="name" aria-required="true">
+          </div>
+
+          <div>
+            <label for="email">Email <span aria-label="required">*</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email" inputmode="email" aria-required="true">
+          </div>
+
+          <div>
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Your Message</legend>
+
+          <div>
+            <label for="subject">Subject <span aria-label="required">*</span></label>
+            <input type="text" id="subject" name="subject" required aria-required="true">
+          </div>
+
+          <div>
+            <label for="message">Message <span aria-label="required">*</span></label>
+            <textarea id="message" name="message" rows="6" required aria-required="true"></textarea>
+          </div>
+        </fieldset>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Gadget Store. All rights reserved.</p>
+  </footer>
+</body>
+</html>
