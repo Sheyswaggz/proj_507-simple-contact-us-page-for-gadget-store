@@ -15,6 +15,7 @@ html {
   text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -244,6 +245,7 @@ header {
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   background-color: rgba(255, 255, 255, 0.95);
+  transition: box-shadow var(--transition-base);
 }
 
 header nav {
@@ -278,8 +280,15 @@ section {
   transition: opacity var(--transition-slow), transform var(--transition-slow);
 }
 
-/* Scroll Reveal Animation */
+/* ============================================
+   Scroll Reveal Animation
+   ============================================ */
 section[data-reveal] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section[data-reveal].hidden {
   opacity: 0;
   transform: translateY(30px);
 }
@@ -305,6 +314,7 @@ section[data-reveal].revealed {
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border);
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  will-change: transform;
 }
 
 .contact-card:hover {
@@ -379,6 +389,7 @@ section[data-reveal].revealed {
   font-weight: var(--font-weight-medium);
   transition: all var(--transition-base);
   min-height: var(--touch-target-min);
+  will-change: transform, background-color;
 }
 
 .social-link:hover {
@@ -516,6 +527,7 @@ fieldset {
   display: grid;
   gap: var(--space-lg);
   background-color: var(--color-surface-secondary);
+  transition: border-color var(--transition-base);
 }
 
 legend {
@@ -549,6 +561,7 @@ label {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
   font-weight: var(--font-weight-normal);
+  transition: color var(--transition-fast);
 }
 
 input,
@@ -562,7 +575,7 @@ select {
   font-size: var(--font-size-base);
   background-color: var(--color-surface);
   color: var(--color-text);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -573,6 +586,12 @@ select {
   background-repeat: no-repeat;
   background-position: right var(--space-md) center;
   padding-right: calc(var(--space-md) * 2.5);
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: var(--color-primary);
 }
 
 input:focus,
@@ -622,6 +641,7 @@ select.success:focus {
   background-color: var(--color-error-light);
   border-left: 3px solid var(--color-error);
   border-radius: var(--radius-sm);
+  animation: slideDown 0.3s ease-out;
 }
 
 /* Form Status Messages */
@@ -664,7 +684,9 @@ textarea {
   font-family: inherit;
 }
 
-/* Submit Button with Loading State */
+/* ============================================
+   Submit Button with Loading State
+   ============================================ */
 .submit-btn {
   min-height: var(--touch-target-min);
   padding: var(--space-md) var(--space-2xl);
@@ -683,6 +705,7 @@ textarea {
   align-items: center;
   justify-content: center;
   gap: var(--space-sm);
+  will-change: transform, background-color;
 }
 
 /* Morphing Button Interactions */
@@ -871,24 +894,36 @@ time {
    Accessibility - Reduced Motion
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 
   section[data-reveal] {
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  section[data-reveal].hidden {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .contact-card:hover,
   .social-link:hover,
   button[type="submit"]:hover {
     transform: none;
+  }
+
+  .btn-loader {
+    animation: none;
   }
 }
 
