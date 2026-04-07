@@ -1,6 +1,6 @@
 /**
  * Contact Form Validation and Interaction Handler
- * Provides real-time validation, sanitization, and user feedback
+ * Provides real-time validation, sanitization, scroll animations, and user feedback
  */
 
 (function() {
@@ -63,31 +63,58 @@
   }
 
   /**
-   * Scroll-triggered reveal animations
+   * Scroll-triggered reveal animations with Intersection Observer
    */
   function initScrollReveal() {
     const revealElements = document.querySelectorAll('[data-reveal]');
 
-    if (!revealElements.length) return;
+    if (!revealElements.length) {
+      return;
+    }
 
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // Skip animations for users who prefer reduced motion
+      revealElements.forEach(el => {
+        el.classList.remove('hidden');
+        el.classList.add('revealed');
+      });
+      return;
+    }
+
+    // Add hidden class initially to elements that will be revealed
+    revealElements.forEach(el => {
+      el.classList.add('hidden');
+    });
+
+    // Intersection Observer options
     const observerOptions = {
       threshold: 0.15,
       rootMargin: '0px 0px -50px 0px'
     };
 
+    // Create observer for scroll-triggered animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
-          // Stagger animation with delay
+          // Stagger animation with delay for smooth cascade effect
           setTimeout(() => {
+            entry.target.classList.remove('hidden');
             entry.target.classList.add('revealed');
           }, index * 150);
+
+          // Stop observing after revealing
           observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
+    // Observe all reveal elements
     revealElements.forEach((el) => observer.observe(el));
+
+    console.log(`[Scroll Reveal] Observing ${revealElements.length} elements`);
   }
 
   /**
@@ -281,12 +308,12 @@
       formStatus.style.display = 'none';
     }, 5000);
 
-    // Scroll to status message
+    // Scroll to status message with smooth behavior
     formStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   /**
-   * Set button loading state
+   * Set button loading state with morphing animation
    */
   function setLoadingState(loading) {
     isSubmitting = loading;
@@ -331,7 +358,7 @@
       return;
     }
 
-    // Set loading state
+    // Set loading state with morphing animation
     setLoadingState(true);
 
     // Collect and sanitize form data
